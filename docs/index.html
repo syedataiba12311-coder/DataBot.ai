@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataBot.ai | WhatsApp Business Data & Analytics Engine</title>
+    <meta name="description" content="Turn WhatsApp messages into real-time Google Sheets data and financial analytics automatically.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-brands fa-whatsapp"></i> DataBot<span class="highlight">.ai</span>
+        </div>
+        <div class="nav-links">
+            <a href="#simulator"><i class="fa-solid fa-mobile-screen"></i> Live Simulator</a>
+            <a href="#dashboard"><i class="fa-solid fa-chart-pie"></i> Analytics & Sheet</a>
+            <a href="#features"><i class="fa-solid fa-cubes"></i> Features</a>
+            <a href="#architecture"><i class="fa-solid fa-network-wired"></i> Architecture</a>
+            <a href="#setup"><i class="fa-solid fa-code"></i> Setup Guide</a>
+        </div>
+        <div class="nav-actions">
+            <div id="system-status-badge" class="status-badge online">
+                <span class="pulse-dot"></span> <span id="status-text">Backend Connected</span>
+            </div>
+            <button class="nav-btn" onclick="scrollToSection('simulator')">Test Live Demo</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="badge">🚀 Submission Ready • Production & Standalone Engine</span>
+            <h1>Automate Your Business on <span class="gradient-text">WhatsApp</span></h1>
+            <p>Convert messy WhatsApp text messages into structured Google Sheets data, instant financial summaries, and automated nightly reports with zero friction.</p>
+
+            <div class="hero-stats-mini">
+                <div class="mini-stat">
+                    <span class="stat-num">100%</span>
+                    <span class="stat-label">Real-time Sync</span>
+                </div>
+                <div class="mini-stat">
+                    <span class="stat-num">0s</span>
+                    <span class="stat-label">Manual Data Entry</span>
+                </div>
+                <div class="mini-stat">
+                    <span class="stat-num">Dual</span>
+                    <span class="stat-label">Google + SQLite Engine</span>
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="scrollToSection('simulator')">
+                    <i class="fa-solid fa-paper-plane"></i> Launch Live Simulator
+                </button>
+                <a href="/api/export" class="secondary-btn" target="_blank">
+                    <i class="fa-solid fa-download"></i> Export CSV Data
+                </a>
+            </div>
+        </div>
+        
+        <!-- Phone Mockup Live Sandbox -->
+        <div id="simulator" class="hero-visual">
+            <div class="glass-card phone-mockup">
+                <div class="phone-header">
+                    <i class="fa-solid fa-chevron-left"></i>
+                    <div class="contact-info">
+                        <strong>DataBot Store Assistant</strong>
+                        <span class="status-online"><i class="fa-solid fa-circle"></i> Online • Live Simulator</span>
+                    </div>
+                    <button class="sound-toggle-btn" id="sound-btn" title="Toggle Sound FX">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                </div>
+
+                <div class="chat-container" id="chat-container">
+                    <div class="message in">
+                        👋 Welcome to **DataBot.ai Interactive Sandbox**!<br><br>
+                        Try sending commands like:<br>
+                        • <code>Sold 5 shirts</code><br>
+                        • <code>Sold 2 jeans @ 2500</code><br>
+                        • <code>Spent 450 shipping</code><br>
+                        • <code>report</code>
+                    </div>
+                </div>
+
+                <!-- Quick Action Chips -->
+                <div class="quick-chips">
+                    <button class="chip-btn" onclick="sendQuickMessage('Sold 5 Cotton Shirts')">Sold 5 Shirts</button>
+                    <button class="chip-btn" onclick="sendQuickMessage('Sold 2 Denim Jeans @ 2500')">Sold 2 Jeans @ 2500</button>
+                    <button class="chip-btn" onclick="sendQuickMessage('Spent 450 Shipping Fee')">Spent 450 Shipping</button>
+                    <button class="chip-btn highlight" onclick="sendQuickMessage('report')">📊 Report</button>
+                </div>
+
+                <!-- Input area -->
+                <form id="chat-form" class="phone-input" onsubmit="handleChatSubmit(event)">
+                    <input type="text" id="chat-input" placeholder="Type a message (e.g. Sold 5 shirts)..." autocomplete="off" />
+                    <button type="submit" id="send-btn" title="Send Message">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Analytics & Live Sheet Section -->
+    <section id="dashboard" class="dashboard-section">
+        <div class="section-header">
+            <h2>Real-Time Live Sheet & Financial Analytics</h2>
+            <p>Every message sent in the simulator or WhatsApp updates this dashboard immediately.</p>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="metrics-grid">
+            <div class="metric-card glass-card">
+                <div class="metric-icon blue"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div class="metric-data">
+                    <span class="metric-title">Total Sales Logged</span>
+                    <h3 id="stat-sales-count">0 units</h3>
+                </div>
+            </div>
+
+            <div class="metric-card glass-card">
+                <div class="metric-icon green"><i class="fa-solid fa-sack-dollar"></i></div>
+                <div class="metric-data">
+                    <span class="metric-title">Gross Revenue</span>
+                    <h3 id="stat-gross-revenue">PKR 0.00</h3>
+                </div>
+            </div>
+
+            <div class="metric-card glass-card">
+                <div class="metric-icon red"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                <div class="metric-data">
+                    <span class="metric-title">Total Expenses</span>
+                    <h3 id="stat-expenses">PKR 0.00</h3>
+                </div>
+            </div>
+
+            <div class="metric-card glass-card">
+                <div class="metric-icon purple"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="metric-data">
+                    <span class="metric-title">Net Profit</span>
+                    <h3 id="stat-net-profit">PKR 0.00</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Body: Chart + Table -->
+        <div class="dashboard-content">
+            <!-- Analytics Chart -->
+            <div class="chart-container-card glass-card">
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-chart-column"></i> Top Items Sold Breakdown</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="topItemsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Google Sheet Mockup & Live Table -->
+            <div class="sheet-container-card glass-card">
+                <div class="card-header">
+                    <div class="sheet-info">
+                        <i class="fa-solid fa-table"></i>
+                        <span>Live Database View: <strong>SalesData_Main</strong></span>
+                        <span id="sync-mode-tag" class="mode-tag">SQLite Local Sync</span>
+                    </div>
+                    <div class="sheet-actions">
+                        <button class="action-btn" onclick="seedSampleData()"><i class="fa-solid fa-database"></i> Seed Samples</button>
+                        <button class="action-btn danger" onclick="clearData()"><i class="fa-solid fa-trash"></i> Reset</button>
+                        <a href="/api/export" class="action-btn primary" target="_blank"><i class="fa-solid fa-file-csv"></i> Download CSV</a>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table" id="data-table">
+                        <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th>Timestamp</th>
+                                <th>Channel / Sender</th>
+                                <th>Type</th>
+                                <th>Item / Category</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <tr>
+                                <td colspan="8" class="empty-msg">No transactions recorded yet. Send a message in the simulator above!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="section-header">
+            <h2>Built for Business Growth</h2>
+            <p>Everything you need for seamless automated record keeping.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card glass-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Smart Regex Parser</h3>
+                <p>Recognizes sales, prices, quantities, and expenses naturally (e.g., <code>Sold 3 jeans @ 1200</code>).</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-arrows-rotate"></i></div>
+                <h3>Google Sheets + SQLite Engine</h3>
+                <p>Dual-engine backend provides instant local performance plus automatic cloud synchronization.</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-clock"></i></div>
+                <h3>Nightly Scheduled Reports</h3>
+                <p>APScheduler background worker dispatches daily summary reports to the business owner at 8:00 PM.</p>
+            </div>
+            <div class="feature-card glass-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-file-export"></i></div>
+                <h3>Instant CSV & Audit Logs</h3>
+                <p>Export full sales history with unit prices, timestamps, and total profit with one click.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- System Architecture Section -->
+    <section id="architecture" class="demo-section">
+        <div class="section-header">
+            <h2>System Architecture & Data Flow</h2>
+            <p>From WhatsApp cloud messaging to local SQLite and Google Sheets API.</p>
+        </div>
+        <div class="demo-container">
+            <div class="architecture-diagram glass-card">
+                <div class="step">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WhatsApp / Twilio Webhook</span>
+                </div>
+                <div class="arrow"></div>
+                <div class="step center">
+                    <i class="fa-brands fa-python"></i>
+                    <span>Flask App Engine (Python)</span>
+                </div>
+                <div class="arrow"></div>
+                <div class="step">
+                    <i class="fa-solid fa-database"></i>
+                    <span>SQLite Local DB + GSheets API</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Setup & Submission Section -->
+    <section id="setup" class="setup-section">
+        <div class="section-header">
+            <h2>Developer & Submission Setup Guide</h2>
+            <p>Run locally in 1 command or connect to live Twilio Sandbox.</p>
+        </div>
+
+        <div class="setup-grid">
+            <div class="setup-card glass-card">
+                <h3><i class="fa-solid fa-terminal"></i> 1. Run Local Engine</h3>
+                <pre><code># Install dependencies
+pip install -r requirements.txt
+
+# Run Flask server (Port 5000)
+python app.py</code></pre>
+            </div>
+
+            <div class="setup-card glass-card">
+                <h3><i class="fa-solid fa-plug"></i> 2. Twilio Webhook Integration</h3>
+                <pre><code># Expose local port 5000 with ngrok
+ngrok http 5000
+
+# Set Twilio Sandbox Webhook URL to:
+https://your-ngrok-url.ngrok-free.app/bot</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>WhatsApp DataBot.ai • Developed for Demonstration & Production Submission</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
